@@ -60,8 +60,6 @@
  *
  * Multi-commands
  * [x] MGET: get multiple values
- * [x] MSET: save multiple key/value pairs
- * [x] MSETNX: save multiple key/value pairs only if all keys do not already exist
  *
  * Save or update a value
  * [x] INCR: increment a value by 1
@@ -77,6 +75,12 @@
  *
  * Hybrid get and set commands
  * [x] GETSET: get a value and update the value with a new string
+ *
+ * The following list commands are not supported by DynomiteDB as they do not
+ * work well in a clustered environment. Only use the commands below when
+ * running a standalone RESP server:
+ * [x] MSET: save multiple key/value pairs
+ * [x] MSETNX: save multiple key/value pairs only if all keys do not already exist
  */
 
 
@@ -261,6 +265,7 @@ function lenUS(key) {
 
 function setMulti() {
     // Population of Australia (AU) is 23 million, which we'll fix in fixAU()
+    // WARNING: Do not use mset in a clustered environment.
     db.mset(
         'country:iso=au:population', 2313000,
         'country:iso=br:population', 200400000, function(err, reply) {
@@ -333,6 +338,7 @@ function preventSetUS(key, value) {
  * one or more keys must exist.
  */
 function preventMultiSet() {
+    // WARNING: Do not use msetnx in a clustered environment.
     db.msetnx(
         'country:iso=au:population', 111,
         'country:iso=br:population', 222, function(err, reply) {

@@ -58,8 +58,6 @@
  *
  * Multi-commands
  * [x] MGET: get multiple values
- * [x] MSET: save multiple key/value pairs
- * [x] MSETNX: save multiple key/value pairs only if all keys do not already exist
  *
  * Save or update a value
  * [x] SET: save a key/value pair
@@ -71,6 +69,12 @@
  *
  * Hybrid get and set commands
  * [x] GETSET: get a value and update the value with a new string
+ *
+ * The following list commands are not supported by DynomiteDB as they do not
+ * work well in a clustered environment. Only use the commands below when
+ * running a standalone RESP server:
+ * [x] MSET: save multiple key/value pairs
+ * [x] MSETNX: save multiple key/value pairs only if all keys do not already exist
  */
 
 
@@ -207,6 +211,7 @@ function lenNY(key) {
 }
 
 function setMulti() {
+    // WARNING: Do not use mset in a clustered environment.
     db.mset('state:usps=oh', 'Ohio', 'state:usps=ia', 'Iow', function(err, reply) {
         if (err) throw err;
 
@@ -270,6 +275,7 @@ function updateCO(key, value) {
 
 
 function multiSetNew() {
+    // WARNING: Do not use msetnx in a clustered environment.
     db.msetnx('state:usps=ia', 'Iowa', 'state:usps=ut', 'Utah', function(err, reply) {
         if (err) throw err;
 
