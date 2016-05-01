@@ -1,0 +1,37 @@
+{
+  "name": "redisconf-2016-nodejs",
+  "version": "1.0.0",
+  "description": "Code samples for talk on Redis API at RedisConf 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DynomiteDB/redisconf-2016-nodejs.git"
+  },
+  "keywords": [
+    "Redis",
+    "data",
+    "types",
+    "use",
+    "cases",
+    "string",
+    "list",
+    "set",
+    "sorted",
+    "set",
+    "hash",
+    "bitmap",
+    "hyperloglog"
+  ],
+  "author": "Akbar S. Ahmed",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/DynomiteDB/redisconf-2016-nodejs/issues"
+  },
+  "homepage": "https://github.com/DynomiteDB/redisconf-2016-nodejs#readme",
+  "dependencies": {
+    "redis": "^2.5.3"
+  }
+}

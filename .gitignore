@@ -1,0 +1,47 @@
+# IDE files
+.idea
+
+# Mac files
+.DS_Store
+lib-cov
+
+# Package management
+node_modules
+bower_components
+
+# SSL
+*.crt
+*.csr
+*.key
+*.pem
+
+# Build
+build
+.tmp
+compiledTemplates.js
+
+# Temp files / working directories
+*.swp
+.sass-cache/
+*.sql~
+*.*~
+
+# Data files
+*.seed
+*.log
+*.csv
+*.dat
+rethinkdb_data/
+*.rdb
+
+# Compressed files
+*.bz
+*.gz
+*.tar
+*.zip
+
+# Process and log files / directories
+pids
+logs
+*.out
+*.pid
