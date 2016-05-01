@@ -19,8 +19,8 @@ The repo is broken into 2 main categories/subdirectories:
 
 - Data types
     1. String
-        - [String](./blob/master/data_types/string/string.js)
-        - [Integer](./blob/master/data_types/string/integer.js)
+        - [String](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/string/string.js)
+        - [Integer](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/string/integer.js)
         - Float
         - Bitmap
         - HyperLogLog
@@ -39,7 +39,3 @@ The coding style in this repo uses unnested callbacks which yields both readable
 - http://exponential.io/blog/unnest-callbacks/
 
 **Note**: There is deliberate repetition of functions to simplify the example code for learning purposes.
-
-
-
-
