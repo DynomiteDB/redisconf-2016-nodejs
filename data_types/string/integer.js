@@ -15,38 +15,40 @@
  */
 
 /*
- * Strings
+ * Integers
  *
  * Run
  * ---
  *
- * node string.js
+ * node integer.js
  *
  * Expected output
  * ---------------
- *
- * set: state:usps=ca California
- * set: state:usps=ny New York
- * set: state:usps=co Xolorado
- * updated: state:usps=co
- * get: state:usps=co Colorado
- * getrange: state:usps=ny York
- * strlen: state:usps=ny 8
+ * set: country:iso=us:population 318900000
+ * incr: country:iso=us:population 318900001
+ * decr: country:iso=us:population 318900000
+ * incrby: country:iso=us:population 318900500
+ * decrby: country:iso=us:population 318900400
+ * set: country:iso=cn:population 9357000000
+ * updated: country:iso=cn:population
+ * get: country:iso=cn:population 1357000000
+ * getrange: country:iso=us:population 318 million
+ * strlen: country:iso=us:population 9
  * mset: OK
- * append: state:usps=ia 4
- * mget: California,Iowa,New York
- * Unable to setnx: key state:usps=co already exists
+ * append: country:iso=au:population 8
+ * mget: 318900400,23130000,200400000
+ * Unable to setnx: key country:iso=us:population already exists
  * Unable to msetnx: a key already exists
- * set: state:usps=al Alabama
- * get: state:usps=al Alabama
+ * set: country:iso=uk:population 64100000
+ * get: country:iso=uk:population 64100000
  * Waiting 2 seconds for key to expire...
- * Unable to get: state:usps=al
- * set: state:usps=ks Kansas
- * get: state:usps=ks Kansas
+ * Unable to get: country:iso=uk:population
+ * set: country:iso=se:population 9593000
+ * get: country:iso=se:population 9593000
  * Waiting 1 second for key to expire...
- * Unable to get: state:usps=ks
- * getset: state:usps=ca was California
- * getset: state:usps=ca is now California, USA
+ * Unable to get: country:iso=se:population
+ * getset: country:iso=us:population was 318900400
+ * getset: country:iso=us:population is now 318900000
  *
  * Commands used in this file
  * --------------------------
@@ -62,6 +64,10 @@
  * [x] MSETNX: save multiple key/value pairs only if all keys do not already exist
  *
  * Save or update a value
+ * [x] INCR: increment a value by 1
+ * [x] INCRBY: increment a value by a specified number
+ * [x] DECR: decrement the value by 1
+ * [x] DECRBY: decrement the value by a specified number
  * [x] SET: save a key/value pair
  * [x] SETNX: save a key/value pair only if the key does not already exist
  * [x] SETEX: save a key/value pair with an expiration in seconds
@@ -95,19 +101,19 @@ db.on('error', function(err) {
  */
 db.on('connect', function() {
     // Let's add some keys
-    setCA('state:usps=ca', 'California');
+    setUS('country:iso=us:population', 318900000);
 });
 
 /*
- * Add a key for California.
+ * Add a key for the US.
  */
-function setCA(key, value) {
+function setUS(key, value) {
     db.set(key, value, function(err, reply) {
         if (err) throw err;
-        
+
         if (reply) {
             console.log('set: ' + key + ' ' + value);
-            setNY('state:usps=ny', 'New York');
+            incrUS('country:iso=us:population');
         } else {
             console.log('Unable to set: ' + key + ' ' + value);
         }
@@ -115,15 +121,15 @@ function setCA(key, value) {
 }
 
 /*
- * Add a key for New York.
+ * A baby is born in the US.
  */
-function setNY(key, value) {
-    db.set(key, value, function(err, reply) {
+function incrUS(key) {
+    db.incr(key, function(err, reply) {
         if (err) throw err;
-        
+
         if (reply) {
-            console.log('set: ' + key + ' ' + value);
-            setCO('state:usps=co', 'Xolorado');
+            console.log('incr: ' + key + ' ' + reply);
+            decrUS('country:iso=us:population');
         } else {
             console.log('Unable to set: ' + key + ' ' + value);
         }
@@ -131,32 +137,79 @@ function setNY(key, value) {
 }
 
 /*
- * Add a key for Colorado.
+ * No one gets out alive.
  */
-function setCO(key, value) {
-    db.set(key, value, function(err, reply) {
+function decrUS(key) {
+    db.decr(key, function(err, reply) {
         if (err) throw err;
-        
+
         if (reply) {
-            console.log('set: ' + key + ' ' + value);
-            fixCO('state:usps=co','C')
+            console.log('decr: ' + key + ' ' + reply);
+            incrByUS('country:iso=us:population', 500);
         } else {
             console.log('Unable to set: ' + key + ' ' + value);
-            db.quit();
         }
     });
 }
 
 /*
- * Fix the spelling of Colorado by replacing the X with a C.
+ * Many new babies.
  */
-function fixCO(key, value) {
+function incrByUS(key, increment) {
+    db.incrby(key, increment, function(err, reply) {
+        if (err) throw err;
+
+        if (reply) {
+            console.log('incrby: ' + key + ' ' + reply);
+            decrByUS('country:iso=us:population', 100);
+        } else {
+            console.log('Unable to set: ' + key + ' ' + value);
+        }
+    });
+}
+
+/*
+ * Too morbid.
+ */
+function decrByUS(key, decrement) {
+    db.decrby(key, decrement, function(err, reply) {
+        if (err) throw err;
+
+        if (reply) {
+            console.log('decrby: ' + key + ' ' + reply);
+            setCN('country:iso=cn:population', 9357000000);
+        } else {
+            console.log('Unable to set: ' + key + ' ' + value);
+        }
+    });
+}
+
+/*
+ * Add a key for China with an incorrect population.
+ */
+function setCN(key, value) {
+    db.set(key, value, function(err, reply) {
+        if (err) throw err;
+
+        if (reply) {
+            console.log('set: ' + key + ' ' + value);
+            fixCN('country:iso=cn:population', 1);
+        } else {
+            console.log('Unable to set: ' + key + ' ' + value);
+        }
+    });
+}
+
+/*
+ * Fix the population of China by replacing the 9 with a 1.
+ */
+function fixCN(key, value) {
     db.setrange(key, 0, value, function(err, reply) {
         if (err) throw err;
-        
+
         if (reply) {
             console.log('updated: ' + key);
-            getCO('state:usps=co');
+            getCN('country:iso=cn:population');
         } else {
             console.log('Unable to update: ' + key + ' ' + value);
             db.quit();
@@ -164,13 +217,13 @@ function fixCO(key, value) {
     });
 }
 
-function getCO(key) {
+function getCN(key) {
     db.get(key, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
-            getYork('state:usps=ny');
+            getUSinMillions('country:iso=us:population');
         } else {
             console.log('Unable to get: ' + key);
             db.quit();
@@ -178,13 +231,13 @@ function getCO(key) {
     });
 }
 
-function getYork(key) {
-    db.getrange(key, 4, -1, function(err, reply) {
+function getUSinMillions(key) {
+    db.getrange(key, 0, 2, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
-            console.log('getrange: ' + key + ' ' + reply);
-            lenNY('state:usps=ny');
+            console.log('getrange: ' + key + ' ' + reply + ' million');
+            lenUS('country:iso=us:population');
         } else {
             console.log('Unable to getrange: ' + key);
             db.quit();
@@ -192,7 +245,7 @@ function getYork(key) {
     });
 }
 
-function lenNY(key) {
+function lenUS(key) {
     db.strlen(key, function(err, reply) {
         if (err) throw err;
 
@@ -207,12 +260,16 @@ function lenNY(key) {
 }
 
 function setMulti() {
-    db.mset('state:usps=oh', 'Ohio', 'state:usps=ia', 'Iow', function(err, reply) {
+    // Population of Australia (AU) is 23 million, which we'll fix in fixAU()
+    db.mset(
+        'country:iso=au:population', 2313000,
+        'country:iso=br:population', 200400000, function(err, reply) {
+
         if (err) throw err;
 
         if (reply) {
             console.log('mset: ' + reply);
-            fixIA('state:usps=ia');
+            fixAU('country:iso=au:population');
         } else {
             console.log('Unable to mset.');
             db.quit();
@@ -220,8 +277,8 @@ function setMulti() {
     });
 }
 
-function fixIA(key) {
-    db.append(key, 'a', function(err, reply) {
+function fixAU(key) {
+    db.append(key, 0, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
@@ -235,15 +292,15 @@ function fixIA(key) {
 }
 
 function getMulti() {
-    var keyCA = 'state:usps=ca';
-    var keyIA = 'state:usps=ia';
-    var keyNY = 'state:usps=ny';
-    db.mget(keyCA, keyIA, keyNY, function(err, reply) {
+    var keyUS = 'country:iso=us:population';
+    var keyAU = 'country:iso=au:population';
+    var keyBR = 'country:iso=br:population';
+    db.mget(keyUS, keyAU, keyBR, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
             console.log('mget: ' + reply);
-            updateCO('state:usps=co', 'Wrong name');
+            preventSetUS('country:iso=us:population', 1);
         } else {
             console.log('Unable to mset.');
             db.quit();
@@ -251,7 +308,10 @@ function getMulti() {
     });
 }
 
-function updateCO(key, value) {
+/**
+ * Prevent an update to the US population since the key already exists
+ */
+function preventSetUS(key, value) {
     db.setnx(key, value, function(err, reply) {
         if (err) throw err;
 
@@ -263,14 +323,19 @@ function updateCO(key, value) {
             // setnx should fail to update the value in this example, therefore
             // the code below should execute.
             console.log('Unable to setnx: key ' + key + ' already exists');
-            multiSetNew();
+            preventMultiSet();
         }
     });
 }
 
-
-function multiSetNew() {
-    db.msetnx('state:usps=ia', 'Iowa', 'state:usps=ut', 'Utah', function(err, reply) {
+/**
+ * Prevent a mset since all of the keys already exists. To prevent an update,
+ * one or more keys must exist.
+ */
+function preventMultiSet() {
+    db.msetnx(
+        'country:iso=au:population', 111,
+        'country:iso=br:population', 222, function(err, reply) {
         if (err) throw err;
 
         // reply=0 since a key already exists. msetnx will fail if one or more
@@ -282,19 +347,19 @@ function multiSetNew() {
             // msetnx should fail to create the key/value pairs in this example,
             // because >= 1 key already exists.
             console.log('Unable to msetnx: a key already exists');
-            setALWithExpiration('state:usps=al', 1, 'Alabama');
+            setUKWithExpiration('country:iso=uk:population', 1, 64100000);
         }
     });
 }
 
-function setALWithExpiration(key, expiration, value) {
+function setUKWithExpiration(key, expiration, value) {
     // Set key that will expire after 1 second
     db.setex(key, expiration, value, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
-            getAL('state:usps=al');
+            getUK('country:iso=uk:population');
         } else {
             console.log('Unable to set: ' + key + ' ' + value);
             db.quit();
@@ -302,7 +367,7 @@ function setALWithExpiration(key, expiration, value) {
     });
 }
 
-function getAL(key) {
+function getUK(key) {
     db.get(key, function(err, reply) {
         if (err) throw err;
 
@@ -310,22 +375,22 @@ function getAL(key) {
             console.log('get: ' + key + ' ' + reply);
             // Recursively call getUK() after 2 seconds
             console.log('Waiting 2 seconds for key to expire...');
-            setTimeout(getAL, 2000, 'state:usps=al');
+            setTimeout(getUK, 2000, 'country:iso=uk:population');
         } else {
             console.log('Unable to get: ' + key);
-            setKSWithMillisecondExpiration('state:usps=ks', 100, 'Kansas');
+            setSEWithMillisecondExpiration('country:iso=se:population', 100, 9593000);
         }
     });
 }
 
-function setKSWithMillisecondExpiration(key, expiration, value) {
+function setSEWithMillisecondExpiration(key, expiration, value) {
     // Set key that will expire after 100 milliseconds
     db.psetex(key, expiration, value, function(err, reply) {
         if (err) throw err;
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
-            getKS('state:usps=ks');
+            getSE('country:iso=se:population');
         } else {
             console.log('Unable to set: ' + key + ' ' + value);
             db.quit();
@@ -333,7 +398,7 @@ function setKSWithMillisecondExpiration(key, expiration, value) {
     });
 }
 
-function getKS(key) {
+function getSE(key) {
     db.get(key, function(err, reply) {
         if (err) throw err;
 
@@ -341,15 +406,18 @@ function getKS(key) {
             console.log('get: ' + key + ' ' + reply);
             // Recursively call getSE() after 1 second
             console.log('Waiting 1 second for key to expire...');
-            setTimeout(getKS, 1000, 'state:usps=ks');
+            setTimeout(getSE, 1000, 'country:iso=se:population');
         } else {
             console.log('Unable to get: ' + key);
-            getsetCA('state:usps=ca', 'California, USA');
+            getsetUS('country:iso=us:population', 318900000);
         }
     });
 }
 
-function getsetCA(key, value) {
+/**
+ * Get the current population of the US and reset it to the default value
+ */
+function getsetUS(key, value) {
     db.getset(key, value, function(err, reply) {
         if (err) throw err;
 

@@ -17,18 +17,19 @@ The repo is broken into 2 main categories/subdirectories:
 
 ## Table of Contents
 
-1. Data types
-    A. String
-        a. String
-        b. Integer
-        c. Float
-        d. Bitmap
-        e. HyperLogLog
-    B. List
-    C. Set
-    D. Sorted set
-    E. Hash
-2. Use cases
+- Data types
+    1. String
+        - [String](./blob/master/data_types/string/string.js)
+        - [Integer](./blob/master/data_types/string/integer.js)
+        - Float
+        - Bitmap
+        - HyperLogLog
+    2. List
+    3. Set
+    4. Sorted set
+    5. Hash
+- Use cases
+    1. Cache
 
 ## Coding style
 
@@ -41,10 +42,4 @@ The coding style in this repo uses unnested callbacks which yields both readable
 
 
 
-XXXXXXXXXXXXX
-XXXXXXXXXXXXX
-XXXXXXXXXXXXX
-XXXXXXXXXXXXX
-XXXXXXXXXXXXX
 
-Using SETNX behind a data services API can make a somewhat immutable value.
