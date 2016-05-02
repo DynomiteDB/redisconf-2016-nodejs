@@ -13,7 +13,7 @@ The slides for the `The Redis API: Simple, Composable, Powerful` talk are availa
 
 The repo is broken into 2 main categories/subdirectories:
 - `data_types`: Contains a subdirectory for each data type with code samples that take advantage of the type's innate properties.
-- `use_cases`: Contains a subdirectory named after a use case.`
+- `use_cases`: Contains a subdirectory named after a use case.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ The repo is broken into 2 main categories/subdirectories:
         - Bitmap
         - HyperLogLog
     2. [List](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/list/list.js)
-    3. Set
+    3. [Set](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/set/set.js)
     4. Sorted set
     5. Hash
 - Use cases
