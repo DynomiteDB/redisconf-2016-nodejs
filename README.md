@@ -24,7 +24,7 @@ The repo is broken into 2 main categories/subdirectories:
         - Float
         - Bitmap
         - HyperLogLog
-    2. List
+    2. [List](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/list/list.js)
     3. Set
     4. Sorted set
     5. Hash
