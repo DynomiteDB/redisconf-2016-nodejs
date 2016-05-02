@@ -318,7 +318,7 @@ function getMulti() {
  */
 function preventSetUS(key, value) {
     db.setnx(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         // reply=0 since the key already exists
         if (reply) {

@@ -213,7 +213,7 @@ function lenNY(key) {
 function setMulti() {
     // WARNING: Do not use mset in a clustered environment.
     db.mset('state:usps=oh', 'Ohio', 'state:usps=ia', 'Iow', function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('mset: ' + reply);

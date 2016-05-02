@@ -119,7 +119,7 @@ function pushInitialRecentPosts(key, valA, valB, valC) {
 
 function getTwoRecentPosts(key) {
     db.lrange(key, 0, 1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
