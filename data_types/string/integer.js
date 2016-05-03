@@ -113,7 +113,7 @@ db.on('connect', function() {
  */
 function setUS(key, value) {
     db.set(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -129,7 +129,7 @@ function setUS(key, value) {
  */
 function incrUS(key) {
     db.incr(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('incr: ' + key + ' ' + reply);
@@ -145,7 +145,7 @@ function incrUS(key) {
  */
 function decrUS(key) {
     db.decr(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('decr: ' + key + ' ' + reply);
@@ -161,7 +161,7 @@ function decrUS(key) {
  */
 function incrByUS(key, increment) {
     db.incrby(key, increment, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('incrby: ' + key + ' ' + reply);
@@ -177,7 +177,7 @@ function incrByUS(key, increment) {
  */
 function decrByUS(key, decrement) {
     db.decrby(key, decrement, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('decrby: ' + key + ' ' + reply);
@@ -193,7 +193,7 @@ function decrByUS(key, decrement) {
  */
 function setCN(key, value) {
     db.set(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -209,7 +209,7 @@ function setCN(key, value) {
  */
 function fixCN(key, value) {
     db.setrange(key, 0, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('updated: ' + key);
@@ -223,7 +223,7 @@ function fixCN(key, value) {
 
 function getCN(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -237,7 +237,7 @@ function getCN(key) {
 
 function getUSinMillions(key) {
     db.getrange(key, 0, 2, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('getrange: ' + key + ' ' + reply + ' million');
@@ -251,7 +251,7 @@ function getUSinMillions(key) {
 
 function lenUS(key) {
     db.strlen(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('strlen: ' + key + ' ' + reply);
@@ -270,7 +270,7 @@ function setMulti() {
         'country:iso=au:population', 2313000,
         'country:iso=br:population', 200400000, function(err, reply) {
 
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('mset: ' + reply);
@@ -284,7 +284,7 @@ function setMulti() {
 
 function fixAU(key) {
     db.append(key, 0, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('append: ' + key + ' ' + reply);
@@ -301,7 +301,7 @@ function getMulti() {
     var keyAU = 'country:iso=au:population';
     var keyBR = 'country:iso=br:population';
     db.mget(keyUS, keyAU, keyBR, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('mget: ' + reply);
@@ -342,7 +342,7 @@ function preventMultiSet() {
     db.msetnx(
         'country:iso=au:population', 111,
         'country:iso=br:population', 222, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         // reply=0 since a key already exists. msetnx will fail if one or more
         // keys already exist.
@@ -361,7 +361,7 @@ function preventMultiSet() {
 function setUKWithExpiration(key, expiration, value) {
     // Set key that will expire after 1 second
     db.setex(key, expiration, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -375,7 +375,7 @@ function setUKWithExpiration(key, expiration, value) {
 
 function getUK(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -392,7 +392,7 @@ function getUK(key) {
 function setSEWithMillisecondExpiration(key, expiration, value) {
     // Set key that will expire after 100 milliseconds
     db.psetex(key, expiration, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -406,7 +406,7 @@ function setSEWithMillisecondExpiration(key, expiration, value) {
 
 function getSE(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -425,7 +425,7 @@ function getSE(key) {
  */
 function getsetUS(key, value) {
     db.getset(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('getset: ' + key + ' was ' + reply);

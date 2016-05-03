@@ -102,7 +102,7 @@ db.on('connect', function() {
 
 function createEmployeesSet(key, valA, valB, valC) {
     db.sadd(key, valA, valB, valC, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sadd: ' + key + ' ' + valA + ' ' + valB + ' ' + valC + ' (' + reply + ')');
@@ -116,7 +116,7 @@ function createEmployeesSet(key, valA, valB, valC) {
 
 function createFriendsSet(key, valA, valB, valC) {
     db.sadd(key, valA, valB, valC, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sadd: ' + key + ' ' + valA + ' ' + valB + ' ' + valC + ' (' + reply + ')');
@@ -130,7 +130,7 @@ function createFriendsSet(key, valA, valB, valC) {
 
 function countFriends(key) {
     db.scard(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('scard: ' + key + ' ' + reply);
@@ -143,7 +143,7 @@ function countFriends(key) {
 
 function workAssociatesOnly(primarySet, secondarySet) {
     db.sdiff(primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sdiff: ' + primarySet + ' ' + secondarySet + ' = ' + reply);
@@ -158,7 +158,7 @@ function workAssociatesOnly(primarySet, secondarySet) {
 
 function createWorkAssociatesSet(newSet, primarySet, secondarySet) {
     db.sdiffstore(newSet, primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sdiffstore: ' + newSet + ' (' + reply + ')');
@@ -172,7 +172,7 @@ function createWorkAssociatesSet(newSet, primarySet, secondarySet) {
 
 function friendlyCoworkers(primarySet, secondarySet) {
     db.sinter(primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sinter: ' + primarySet + ' ' + secondarySet + ' = ' + reply);
@@ -186,7 +186,7 @@ function friendlyCoworkers(primarySet, secondarySet) {
 
 function createFriendlyCoworkersSet(newSet, primarySet, secondarySet) {
     db.sinterstore(newSet, primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sinterstore: ' + newSet + ' (' + reply + ')');
@@ -200,7 +200,7 @@ function createFriendlyCoworkersSet(newSet, primarySet, secondarySet) {
 
 function allContacts(primarySet, secondarySet) {
     db.sunion(primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sunion: ' + primarySet + ' ' + secondarySet + ' = ' + reply);
@@ -214,7 +214,7 @@ function allContacts(primarySet, secondarySet) {
 
 function createAllContactsSet(newSet, primarySet, secondarySet) {
     db.sunionstore(newSet, primarySet, secondarySet, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sunionstore: ' + newSet + ' (' + reply + ')');
@@ -228,7 +228,7 @@ function createAllContactsSet(newSet, primarySet, secondarySet) {
 
 function viewFriendlyCoworkers(key) {
     db.smembers(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('smembers: ' + key + ' ' + reply);
@@ -242,7 +242,7 @@ function viewFriendlyCoworkers(key) {
 
 function isBobFriendly(key, value) {
     db.sismember(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sismember: ' + key + ' ' + value + ' is friendly (' + reply + ')');
@@ -256,7 +256,7 @@ function isBobFriendly(key, value) {
 
 function befriendSue(source, destination, member) {
     db.smove(source, destination, member, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('smove: ' + member + ' from ' + source + ' to ' + destination + ' (' + reply + ')');
@@ -270,7 +270,7 @@ function befriendSue(source, destination, member) {
 
 function viewFriendlyCoworkersAfterMove(key) {
     db.smembers(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('smembers: ' + key + ' (' + reply + ')');
@@ -298,7 +298,7 @@ function getAndRemoveOneFriend(key) {
 
 function viewFriendlyCoworkersAfterRemove(key) {
     db.smembers(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('smembers: ' + key + ' (' + reply + ')');
@@ -312,7 +312,7 @@ function viewFriendlyCoworkersAfterRemove(key) {
 
 function getRandomPerson(key, count) {
     db.srandmember(key, count, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('srandmember: ' + key + ' ' + reply);
@@ -326,7 +326,7 @@ function getRandomPerson(key, count) {
 
 function viewAllContactsAfterGetRand(key) {
     db.smembers(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('smembers: ' + key + ' ' + reply);
@@ -340,7 +340,7 @@ function viewAllContactsAfterGetRand(key) {
 
 function removeJane(key, member) {
     db.srem(key, member, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('srem: ' + key + ' ' + member + ' (' + reply + ')');
@@ -354,7 +354,7 @@ function removeJane(key, member) {
 
 function getAllContentsEndWithe(key, value) {
     db.sscan(key, 0, 'MATCH', '*' + value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('sscan: ' + key + reply);

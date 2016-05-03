@@ -107,7 +107,7 @@ db.on('connect', function() {
  */
 function setCA(key, value) {
     db.set(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
         
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -123,7 +123,7 @@ function setCA(key, value) {
  */
 function setNY(key, value) {
     db.set(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
         
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -139,7 +139,7 @@ function setNY(key, value) {
  */
 function setCO(key, value) {
     db.set(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
         
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -156,7 +156,7 @@ function setCO(key, value) {
  */
 function fixCO(key, value) {
     db.setrange(key, 0, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
         
         if (reply) {
             console.log('updated: ' + key);
@@ -170,7 +170,7 @@ function fixCO(key, value) {
 
 function getCO(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -184,7 +184,7 @@ function getCO(key) {
 
 function getYork(key) {
     db.getrange(key, 4, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('getrange: ' + key + ' ' + reply);
@@ -198,7 +198,7 @@ function getYork(key) {
 
 function lenNY(key) {
     db.strlen(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('strlen: ' + key + ' ' + reply);
@@ -227,7 +227,7 @@ function setMulti() {
 
 function fixIA(key) {
     db.append(key, 'a', function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('append: ' + key + ' ' + reply);
@@ -244,7 +244,7 @@ function getMulti() {
     var keyIA = 'state:usps=ia';
     var keyNY = 'state:usps=ny';
     db.mget(keyCA, keyIA, keyNY, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('mget: ' + reply);
@@ -258,7 +258,7 @@ function getMulti() {
 
 function updateCO(key, value) {
     db.setnx(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         // reply=0 since the key already exists
         if (reply) {
@@ -277,7 +277,7 @@ function updateCO(key, value) {
 function multiSetNew() {
     // WARNING: Do not use msetnx in a clustered environment.
     db.msetnx('state:usps=ia', 'Iowa', 'state:usps=ut', 'Utah', function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         // reply=0 since a key already exists. msetnx will fail if one or more
         // keys already exist.
@@ -296,7 +296,7 @@ function multiSetNew() {
 function setALWithExpiration(key, expiration, value) {
     // Set key that will expire after 1 second
     db.setex(key, expiration, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -310,7 +310,7 @@ function setALWithExpiration(key, expiration, value) {
 
 function getAL(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -327,7 +327,7 @@ function getAL(key) {
 function setKSWithMillisecondExpiration(key, expiration, value) {
     // Set key that will expire after 100 milliseconds
     db.psetex(key, expiration, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('set: ' + key + ' ' + value);
@@ -341,7 +341,7 @@ function setKSWithMillisecondExpiration(key, expiration, value) {
 
 function getKS(key) {
     db.get(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('get: ' + key + ' ' + reply);
@@ -357,7 +357,7 @@ function getKS(key) {
 
 function getsetCA(key, value) {
     db.getset(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('getset: ' + key + ' was ' + reply);

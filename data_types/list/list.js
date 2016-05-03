@@ -105,7 +105,7 @@ db.on('connect', function() {
 
 function pushInitialRecentPosts(key, valA, valB, valC) {
     db.lpush(key, valA, valB, valC, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lpush: ' + key + ' ' + valA + ' ' + valB + ' ' + valC);
@@ -133,7 +133,7 @@ function getTwoRecentPosts(key) {
 
 function pushPostsToExistingList(key, value) {
     db.lpushx(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lpushx: ' + key + ' ' + value);
@@ -146,7 +146,7 @@ function pushPostsToExistingList(key, value) {
 
 function preventPushToNonList(key, valA) {
     db.lpushx(key, valA, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lpushx: ' + key + ' ' + valA);
@@ -161,7 +161,7 @@ function preventPushToNonList(key, valA) {
 
 function getMostRecentPost(key) {
     db.lpop(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lpop: ' + key + ' ' + reply);
@@ -175,7 +175,7 @@ function getMostRecentPost(key) {
 
 function getOldestPost(key) {
     db.rpop(key, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('rpop: ' + key + ' ' + reply);
@@ -189,7 +189,7 @@ function getOldestPost(key) {
 
 function changeRecentPost(key, index, value) {
     db.lset(key, index, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lset: ' + key + '[' + index + '] ' + value + ' (' + reply + ')');
@@ -203,7 +203,7 @@ function changeRecentPost(key, index, value) {
 
 function viewListAfterLset(key) {
     db.lrange(key, 0, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
@@ -217,7 +217,7 @@ function viewListAfterLset(key) {
 
 function pushToEndOfList(key, valA, valB) {
     db.rpush(key, valA, valB, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('rpush: ' + key + ' (' + reply + ')');
@@ -231,7 +231,7 @@ function pushToEndOfList(key, valA, valB) {
 
 function viewThreeOldestItems(key) {
     db.lrange(key, -3, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
@@ -245,7 +245,7 @@ function viewThreeOldestItems(key) {
 
 function preventRightPushToNonList(key, value) {
     db.rpushx(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('rpushx: ' + key + ' (' + reply + ')');
@@ -301,7 +301,7 @@ function getSecondItem(key, index) {
 
 function viewListAfterLindex(key) {
     db.lrange(key, 0, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
@@ -315,7 +315,7 @@ function viewListAfterLindex(key) {
 
 function removeItem(key, count, value) {
     db.lrem(key, count, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrem: ' + key + ' (' + reply + ')');
@@ -329,7 +329,7 @@ function removeItem(key, count, value) {
 
 function limitToTopThree(key, start, stop) {
     db.ltrim(key, start, stop, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('ltrim: ' + key + ' (' + reply + ')');
@@ -343,7 +343,7 @@ function limitToTopThree(key, start, stop) {
 
 function viewListAfterTrim(key) {
     db.lrange(key, 0, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
@@ -357,7 +357,7 @@ function viewListAfterTrim(key) {
 
 function createPostArchive(key, value) {
     db.lpush(key, value, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lpush: ' + key + ' ' + value + ' (' + reply + ')');
@@ -371,7 +371,7 @@ function createPostArchive(key, value) {
 
 function archiveOldestPost(source, destination) {
     db.rpoplpush(source, destination, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('rpoplpush: ' + source + ' to ' + destination + ' (' + reply + ')');
@@ -385,7 +385,7 @@ function archiveOldestPost(source, destination) {
 
 function viewRecentPosts(key) {
     db.lrange(key, 0, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
@@ -399,7 +399,7 @@ function viewRecentPosts(key) {
 
 function viewArchivePosts(key) {
     db.lrange(key, 0, -1, function(err, reply) {
-        if (err) throw err;
+        if (err) console.log(err);
 
         if (reply) {
             console.log('lrange: ' + key + ' ' + reply);
