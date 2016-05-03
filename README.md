@@ -26,8 +26,8 @@ The repo is broken into 2 main categories/subdirectories:
         - HyperLogLog
     2. [List](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/list/list.js)
     3. [Set](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/set/set.js)
-    4. Sorted set
-    5. Hash
+    4. [Sorted set](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/sorted_set/sorted_set.js)
+    5. [Hash](https://github.com/DynomiteDB/redisconf-2016-nodejs/blob/master/data_types/hash/hash.js)
 - Use cases
     1. Cache
 
