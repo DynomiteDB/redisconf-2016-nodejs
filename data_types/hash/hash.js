@@ -191,7 +191,7 @@ function bobHasCitizenship(key, field) {
 
         if (reply) {
             console.log('hexists: ' + key + ' has ' + field + ' (' + reply + ')');
-            getSueFields(sueKey, 'citizenship');
+            getSueFields(sueKey);
         } else {
             console.log('hexists:  ' + key + ' does not have ' + field + ' (' + reply + ')');
             db.quit();
